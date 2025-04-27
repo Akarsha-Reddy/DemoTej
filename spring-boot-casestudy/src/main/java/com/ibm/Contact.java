@@ -1,5 +1,8 @@
 package com.ibm;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,10 +17,18 @@ public class Contact {
     private Long id;
     private String contactName;
     private String email;
-    private String phoneNumber;
-    @ManyToOne
+	private String phoneNumber;
+	private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+	public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 	public Long getId() {
 		return id;
 	}
